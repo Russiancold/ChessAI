@@ -9,15 +9,11 @@ import java.io.IOException;
 public class Piece {
     private String URL = "C:\\Users\\allen\\Documents\\Chess\\src\\main\\resources\\img\\";
 
-    private Position position;
     private Color type;
     private Type pieceType;
-    private Field field;
 
     public Piece(Position position, Color color, Type piece, Graphics g){
-        this.position = position;
-        this.field = field;
-
+        this.pieceType = piece;
         if(color.equals(Color.WHITE)) {
             this.type = Color.WHITE;
             this.URL = this.URL + "w";
@@ -39,20 +35,26 @@ public class Piece {
                 break;
             case KNIGHT: this.URL = this.URL + "N.png";
                 break;
+            default: this.URL = "null";
         }
 
         Image img = null;
 
-        try {
-            img = this.getImage();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(this.pieceType != Type.NIL) {
+            try {
+                img = this.getImage();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            g.drawImage(img, position.getX() * 80, position.getY() * 80, null);
         }
 
-        g.drawImage(img, position.getX() * 80, position.getY() * 80, null);
+        System.out.println(URL + " " + new Integer(position.getX()).toString() + " " + new Integer(position.getY()).toString());
     }
 
     public enum Color {
+        NIL,
         WHITE,
         BLACK
     }

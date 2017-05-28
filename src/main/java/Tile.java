@@ -12,8 +12,14 @@ public class Tile implements java.awt.event.MouseListener{
     public Tile(Position position, Field field, Color color, Graphics g) {
         this.position = position;
         this.field = field;
+        this.piece = piece;
         g.setColor(color);
         g.fillRect(position.getX() * 80, position.getY() * 80, 80, 80);
+        this.field.addTile(this);
+    }
+
+    public void setPiece(Piece piece) {
+        this.piece = piece;
     }
 
     @Override

@@ -13,7 +13,7 @@ public class Game extends JFrame {
     private static final int CANVAS_WIDTH  = 640;
     private static final int CANVAS_HEIGHT = 640;
 
-    private Field field = new Field();
+    private Field field;
 
     private DrawCanvas canvas;
 
@@ -21,7 +21,7 @@ public class Game extends JFrame {
         return field;
     }
 
-    public Game() {
+    public Game(){
         field = new Field();
         canvas = new DrawCanvas();
         canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
@@ -39,7 +39,6 @@ public class Game extends JFrame {
         @Override
         public void paintComponent(Graphics g) {
             Utils.tilesInit(g, field);
-            Utils.piecesInit(g);
         }
     }
 
