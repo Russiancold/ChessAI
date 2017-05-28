@@ -11,9 +11,12 @@ public class Piece {
 
     private Position position;
     private Color type;
+    private Type pieceType;
+    private Field field;
 
-    public Piece(Position position, Color color, String piece, Graphics g){
+    public Piece(Position position, Color color, Type piece, Graphics g){
         this.position = position;
+        this.field = field;
 
         if(color.equals(Color.WHITE)) {
             this.type = Color.WHITE;
@@ -24,17 +27,17 @@ public class Piece {
         }
 
         switch (piece){
-            case "Bishop": this.URL = this.URL + "B.png";
+            case BISHOP: this.URL = this.URL + "B.png";
                     break;
-            case "Rook": this.URL = this.URL + "R.png";
+            case ROOK: this.URL = this.URL + "R.png";
                 break;
-            case "Queen": this.URL = this.URL + "Q.png";
+            case QUEEN: this.URL = this.URL + "Q.png";
                 break;
-            case "King": this.URL = this.URL + "K.png";
+            case KING: this.URL = this.URL + "K.png";
                 break;
-            case "Pawn": this.URL = this.URL + "P.png";
+            case PAWN: this.URL = this.URL + "P.png";
                 break;
-            case "Knight": this.URL = this.URL + "N.png";
+            case KNIGHT: this.URL = this.URL + "N.png";
                 break;
         }
 
@@ -54,9 +57,22 @@ public class Piece {
         BLACK
     }
 
+    public enum Type {
+        NIL,
+        PAWN,
+        ROOK,
+        KING,
+        QUEEN,
+        KNIGHT,
+        BISHOP
+    }
+
+    public Type getPieceType() {
+        return pieceType;
+    }
+
     public Image getImage() throws IOException {
         Image img = ImageIO.read(new File(URL));
         return img;
     }
-
 }
