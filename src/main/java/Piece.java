@@ -9,16 +9,25 @@ import java.io.IOException;
 public class Piece {
     private String URL = "C:\\Users\\allen\\Documents\\Chess\\src\\main\\resources\\img\\";
 
+    public Color getType() {
+        return type;
+    }
+
+    public boolean isPawnJumped() {
+        return pawnJumped;
+    }
+
+    private boolean pawnJumped = false;
     private Color type;
     private Type pieceType;
 
-    public Piece(Position position, Color color, Type piece, Graphics g){
+    public Piece(Position position, Color color, Type piece){
         this.pieceType = piece;
+        this.type = color;
+
         if(color.equals(Color.WHITE)) {
-            this.type = Color.WHITE;
             this.URL = this.URL + "w";
         } else {
-            this.type = Color.BLACK;
             this.URL = URL + "b";
         }
 
@@ -37,20 +46,6 @@ public class Piece {
                 break;
             default: this.URL = "null";
         }
-
-        Image img = null;
-
-        if(this.pieceType != Type.NIL) {
-            try {
-                img = this.getImage();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            g.drawImage(img, position.getX() * 80, position.getY() * 80, null);
-        }
-
-        System.out.println(URL + " " + new Integer(position.getX()).toString() + " " + new Integer(position.getY()).toString());
     }
 
     public enum Color {
@@ -68,6 +63,8 @@ public class Piece {
         KNIGHT,
         BISHOP
     }
+
+
 
     public Type getPieceType() {
         return pieceType;
