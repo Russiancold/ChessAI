@@ -13,10 +13,25 @@ public class Tile {
     private Piece piece;
     private Color color;
 
+    public void removePiece() {
+        piece = new Piece(Piece.Color.NIL, Piece.Type.NIL);
+    }
+
+    public void addPiece(Piece piece) {
+        this.piece = piece;
+    }
+
+    public Color getDefaultColor() {
+        return defaultColor;
+    }
+
+    private Color defaultColor;
+
     public Tile(Position position, Field field, Color color) {
         this.position = position;
         this.piece = piece;
         this.color = color;
+        this.defaultColor = color;
         field.addTile(this);
     }
 

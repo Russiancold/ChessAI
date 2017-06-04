@@ -6,7 +6,7 @@ import java.awt.geom.Arc2D;
  */
 public final class Utils {
     public static void tilesInit(Field field) {
-        Color color = Color.white;
+        Color color = Color.gray;
         Piece piece = null;
         Piece.Color pieceColor;
         Tile tile;
@@ -20,29 +20,29 @@ public final class Utils {
                     case 2: {
                         pieceColor = Piece.Color.BLACK;
                         switch (i) {
-                            case 0: piece = new Piece(new Position(i, j), Piece.Color.NIL, Piece.Type.NIL);
+                            case 0: piece = new Piece(Piece.Color.NIL, Piece.Type.NIL);
                                 break;
-                            case 1: piece = new Piece(new Position(i, j), Piece.Color.NIL, Piece.Type.NIL);
+                            case 1: piece = new Piece(Piece.Color.NIL, Piece.Type.NIL);
                                 break;
-                            case 10: piece = new Piece(new Position(i, j), Piece.Color.NIL, Piece.Type.NIL);
+                            case 10: piece = new Piece(Piece.Color.NIL, Piece.Type.NIL);
                                 break;
-                            case 11: piece = new Piece(new Position(i, j), Piece.Color.NIL, Piece.Type.NIL);
+                            case 11: piece = new Piece(Piece.Color.NIL, Piece.Type.NIL);
                                 break;
-                            case 2: piece = new Piece(new Position(i, j), pieceColor, Piece.Type.ROOK);
+                            case 2: piece = new Piece(pieceColor, Piece.Type.ROOK);
                             break;
-                            case 3: piece = new Piece(new Position(i, j), pieceColor, Piece.Type.KNIGHT);
+                            case 3: piece = new Piece(pieceColor, Piece.Type.KNIGHT);
                             break;
-                            case 4: piece = new Piece(new Position(i, j), pieceColor, Piece.Type.BISHOP);
+                            case 4: piece = new Piece(pieceColor, Piece.Type.BISHOP);
                             break;
-                            case 5: piece = new Piece(new Position(i, j), pieceColor, Piece.Type.KING);
+                            case 5: piece = new Piece(pieceColor, Piece.Type.QUEEN);
                             break;
-                            case 6: piece = new Piece(new Position(i, j), pieceColor, Piece.Type.QUEEN);
+                            case 6: piece = new Piece(pieceColor, Piece.Type.KING);
                             break;
-                            case 7: piece = new Piece(new Position(i, j), pieceColor, Piece.Type.BISHOP);
+                            case 7: piece = new Piece(pieceColor, Piece.Type.BISHOP);
                             break;
-                            case 8: piece = new Piece(new Position(i, j), pieceColor, Piece.Type.KNIGHT);
+                            case 8: piece = new Piece(pieceColor, Piece.Type.KNIGHT);
                             break;
-                            case 9: piece = new Piece(new Position(i, j), pieceColor, Piece.Type.ROOK);
+                            case 9: piece = new Piece(pieceColor, Piece.Type.ROOK);
                             break;
                         }
                         break;
@@ -50,36 +50,36 @@ public final class Utils {
                     case 3: {
                         if(i != 0 && i != 1 && i != 10 && i != 11) {
                             pieceColor = Piece.Color.BLACK;
-                            piece = new Piece(new Position(i, j), pieceColor, Piece.Type.PAWN);
+                            piece = new Piece(pieceColor, Piece.Type.PAWN);
                         }
                         break;
                     }
                     case 9: {
                         pieceColor = Piece.Color.WHITE;
                         switch (i) {
-                            case 0: piece = new Piece(new Position(i, j), Piece.Color.NIL, Piece.Type.NIL);
+                            case 0: piece = new Piece(Piece.Color.NIL, Piece.Type.NIL);
                                 break;
-                            case 1: piece = new Piece(new Position(i, j), Piece.Color.NIL, Piece.Type.NIL);
+                            case 1: piece = new Piece(Piece.Color.NIL, Piece.Type.NIL);
                                 break;
-                            case 10: piece = new Piece(new Position(i, j), Piece.Color.NIL, Piece.Type.NIL);
+                            case 10: piece = new Piece(Piece.Color.NIL, Piece.Type.NIL);
                                 break;
-                            case 11: piece = new Piece(new Position(i, j), Piece.Color.NIL, Piece.Type.NIL);
+                            case 11: piece = new Piece(Piece.Color.NIL, Piece.Type.NIL);
                                 break;
-                            case 2: piece = new Piece(new Position(i, j), pieceColor, Piece.Type.ROOK);
+                            case 2: piece = new Piece(pieceColor, Piece.Type.ROOK);
                             break;
-                            case 3: piece = new Piece(new Position(i, j), pieceColor, Piece.Type.KNIGHT);
+                            case 3: piece = new Piece(pieceColor, Piece.Type.KNIGHT);
                             break;
-                            case 4: piece = new Piece(new Position(i, j), pieceColor, Piece.Type.BISHOP);
+                            case 4: piece = new Piece(pieceColor, Piece.Type.BISHOP);
                             break;
-                            case 5: piece = new Piece(new Position(i, j), pieceColor, Piece.Type.KING);
+                            case 5: piece = new Piece(pieceColor, Piece.Type.QUEEN);
                             break;
-                            case 6: piece = new Piece(new Position(i, j), pieceColor, Piece.Type.QUEEN);
+                            case 6: piece = new Piece(pieceColor, Piece.Type.KING);
                             break;
-                            case 7: piece = new Piece(new Position(i, j), pieceColor, Piece.Type.BISHOP);
+                            case 7: piece = new Piece(pieceColor, Piece.Type.BISHOP);
                             break;
-                            case 8: piece = new Piece(new Position(i, j), pieceColor, Piece.Type.KNIGHT);
+                            case 8: piece = new Piece(pieceColor, Piece.Type.KNIGHT);
                             break;
-                            case 9: piece = new Piece(new Position(i, j), pieceColor, Piece.Type.ROOK);
+                            case 9: piece = new Piece(pieceColor, Piece.Type.ROOK);
                             break;
                         }
                         break;
@@ -87,25 +87,25 @@ public final class Utils {
                     case 8: {
                         if(i != 0 && i != 1 && i != 10 && i != 11) {
                             pieceColor = Piece.Color.WHITE;
-                            piece = new Piece(new Position(i, j), pieceColor, Piece.Type.PAWN);
+                            piece = new Piece(pieceColor, Piece.Type.PAWN);
                         }
                         break;
                     }
-                    case 4: piece = new Piece(new Position(i, j), Piece.Color.NIL, Piece.Type.NIL);
+                    case 4: piece = new Piece(Piece.Color.NIL, Piece.Type.NIL);
                         break;
-                    case 5: piece = new Piece(new Position(i, j), Piece.Color.NIL, Piece.Type.NIL);
+                    case 5: piece = new Piece(Piece.Color.NIL, Piece.Type.NIL);
                         break;
-                    case 6: piece = new Piece(new Position(i, j), Piece.Color.NIL, Piece.Type.NIL);
+                    case 6: piece = new Piece(Piece.Color.NIL, Piece.Type.NIL);
                         break;
-                    case 7: piece = new Piece(new Position(i, j), Piece.Color.NIL, Piece.Type.NIL);
+                    case 7: piece = new Piece(Piece.Color.NIL, Piece.Type.NIL);
                         break;
-                    case 0: piece = new Piece(new Position(i, j), Piece.Color.NIL, Piece.Type.NIL);
+                    case 0: piece = new Piece(Piece.Color.NIL, Piece.Type.NIL);
                         break;
-                    case 1: piece = new Piece(new Position(i, j), Piece.Color.NIL, Piece.Type.NIL);
+                    case 1: piece = new Piece(Piece.Color.NIL, Piece.Type.NIL);
                         break;
-                    case 10: piece = new Piece(new Position(i, j), Piece.Color.NIL, Piece.Type.NIL);
+                    case 10: piece = new Piece(Piece.Color.NIL, Piece.Type.NIL);
                         break;
-                    case 11: piece = new Piece(new Position(i, j), Piece.Color.NIL, Piece.Type.NIL);
+                    case 11: piece = new Piece(Piece.Color.NIL, Piece.Type.NIL);
                         break;
                 }
                 if(color == Color.gray) {
