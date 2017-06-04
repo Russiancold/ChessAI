@@ -8,6 +8,11 @@ import java.util.ArrayList;
  */
 public class Field {
     private ArrayList<Tile> field = new ArrayList<>();
+    private int moveCounter = 0;
+
+    public void incCounter() {
+        moveCounter++;
+    }
 
     public ArrayList<Tile> getField() {
         return field;

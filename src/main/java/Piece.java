@@ -17,6 +17,10 @@ public class Piece {
         return pawnJumped;
     }
 
+    public void setPawnJumped(boolean pawnJumped) {
+        this.pawnJumped = pawnJumped;
+    }
+
     private boolean pawnJumped = false;
     private Color type;
     private Type pieceType;

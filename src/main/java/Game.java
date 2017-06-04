@@ -9,9 +9,8 @@ import java.util.ArrayList;
  * Created by allen on 25.05.2017.
  */
 
-public class Game extends JFrame implements Scrollable{
-    private static final int CANVAS_WIDTH  = 960;
-    private static final int CANVAS_HEIGHT = 960;
+public class Game extends JFrame{
+    private static final int PREFERED_ROW_COUNT = 12;
     private static final int VISIBLE_ROW_COUNT = 8;
     private static final int TILE_SIZE = 80;
 
@@ -32,23 +31,31 @@ public class Game extends JFrame implements Scrollable{
     public Game(){
         field = new Field();
         canvas = new DrawCanvas();
-        canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
+        JScrollPane scrollPaneCanvas = new JScrollPane(canvas);
+        scrollPaneCanvas.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPaneCanvas.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        setLayout(new BorderLayout());
+        canvas.setPreferredSize(new Dimension(PREFERED_ROW_COUNT * TILE_SIZE, PREFERED_ROW_COUNT * TILE_SIZE));
         Utils.tilesInit(field);
 
         Container cp = getContentPane();
-        cp.add(canvas);
+        cp.add(scrollPaneCanvas);
+        int x = 2 * TILE_SIZE;
+        Point pt = new Point(x, x);
+        scrollPaneCanvas.getViewport().setViewPosition(pt);
 
-        setPreferredSize(new Dimension(640, 640));
+        setPreferredSize(new Dimension(VISIBLE_ROW_COUNT * TILE_SIZE + 16, VISIBLE_ROW_COUNT * TILE_SIZE + 42));
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         pack();
         setTitle("Chess");
+        setLocationRelativeTo(null);
         setVisible(true);
         MouseListener mouse = new MouseListener(){
 
             @Override
             public void mouseClicked(MouseEvent e){
-                Point point = MouseInfo.getPointerInfo().getLocation();
+                Point point = new Point(e.getX(), e.getY());
                 Position position = Utils.pointToPosition(point);
                 if(!isMoving && !field.getByPosition(position).isEmpty()
                         && field.getByPosition(position).getPiece().getType() == movingSide) {
@@ -68,6 +75,7 @@ public class Game extends JFrame implements Scrollable{
                                 i.setColor(i.getDefaultColor());
                             }
                             changeMovingSide();
+                            field.getByPosition(position).jump();
                             repaint();
                             return;
                     } else {
@@ -108,41 +116,15 @@ public class Game extends JFrame implements Scrollable{
             }
         };
 
-        this.addMouseListener(mouse);
+        canvas.addMouseListener(mouse);
     }
 
-    @Override
-    public Dimension getPreferredScrollableViewportSize() {
-        Dimension viewportSize = new Dimension(VISIBLE_ROW_COUNT * TILE_SIZE, VISIBLE_ROW_COUNT * TILE_SIZE);
-        return viewportSize;
-    }
-
-    @Override
-    public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
-        return 1;
-    }
-
-    @Override
-    public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
-        return TILE_SIZE;
-    }
-
-    @Override
-    public boolean getScrollableTracksViewportWidth() {
-        return false;
-    }
-
-    @Override
-    public boolean getScrollableTracksViewportHeight() {
-        return false;
-    }
-
-    private class DrawCanvas extends JPanel {
+    private class DrawCanvas extends JPanel implements Scrollable{
         @Override
         public void paintComponent(Graphics g) {
             for(Tile i : field.getField()) {
                 g.setColor(i.getColor());
-                g.fillRect(i.getPosition().getX() * 80, i.getPosition().getY() * 80, 80, 80);
+                g.fillRect(i.getPosition().getX() * TILE_SIZE, i.getPosition().getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 
                 if(i.getPiece().getPieceType() != Piece.Type.NIL) {
                     Image img = null;
@@ -152,10 +134,39 @@ public class Game extends JFrame implements Scrollable{
                         e.printStackTrace();
                     }
 
-                    g.drawImage(img, i.getPosition().getX() * 80, i.getPosition().getY() * 80, null);
+                    g.drawImage(img, i.getPosition().getX() * TILE_SIZE, i.getPosition().getY() * TILE_SIZE, null);
                 }
             }
         }
+
+        @Override
+        public Dimension getPreferredScrollableViewportSize() {
+            Dimension viewportSize = new Dimension(PREFERED_ROW_COUNT * TILE_SIZE, PREFERED_ROW_COUNT * TILE_SIZE);
+            return viewportSize;
+        }
+
+        @Override
+        public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation,
+                                               int direction) {
+            return TILE_SIZE;
+        }
+
+        @Override
+        public boolean getScrollableTracksViewportHeight() {
+            return false;
+        }
+
+        @Override
+        public boolean getScrollableTracksViewportWidth() {
+            return false;
+        }
+
+        @Override
+        public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation,
+                                              int direction) {
+            return 1;
+        }
+
     }
 
     public void changeMovingSide() {
@@ -164,6 +175,7 @@ public class Game extends JFrame implements Scrollable{
         } else {
             movingSide = Piece.Color.WHITE;
         }
+        field.incCounter();
     }
 
     // The entry main method

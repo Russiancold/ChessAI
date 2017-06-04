@@ -117,6 +117,6 @@ public final class Utils {
     }
 
     public static Position pointToPosition(Point mouse) {
-        return new Position(((int) mouse.getX() - 10) / 80, ((int) mouse.getY() - 30) / 80);
+        return new Position(((int) mouse.getX()) / 80, ((int) mouse.getY()) / 80);
     }
 }

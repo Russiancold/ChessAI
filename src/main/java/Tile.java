@@ -17,6 +17,10 @@ public class Tile {
         piece = new Piece(Piece.Color.NIL, Piece.Type.NIL);
     }
 
+    public void jump() {
+        piece.setPawnJumped(true);
+    }
+
     public void addPiece(Piece piece) {
         this.piece = piece;
     }
@@ -72,7 +76,7 @@ public class Tile {
     }
 
     public ArrayList<Tile> getPawnTiles(Field field) {
-        ArrayList<Tile > availableTiles = new ArrayList<>();
+        ArrayList<Tile> availableTiles = new ArrayList<>();
         int x = position.getX();
         int y = position.getY();
         if (piece.getType() == Piece.Color.BLACK) {
